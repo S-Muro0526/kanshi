@@ -1,0 +1,125 @@
+##
+# Path: wasabi-log-monitor/config.yaml
+# Purpose: 全体設定ファイル
+# Rationale: 全コンポーネントの設定を一元管理
+# Last Modified: 2026-04-01
+##
+
+# Wasabi S3接続設定
+wasabi:
+  endpoint_url: "https://s3.ap-northeast-1.wasabisys.com"
+  region: "ap-northeast-1"
+  access_key: "${WASABI_ACCESS_KEY}"
+  secret_key: "${WASABI_SECRET_KEY}"
+  log_bucket: "log-storage-bucket"
+  log_prefix: ""
+
+# 監査ログ設定
+audit_log:
+  # "bucket" = ログ保管バケットから取得, "local" = ローカルCSVから取得
+  source: "bucket"
+  bucket_prefix: "audit-logs/"
+  local_path: "./audit_logs/"
+
+# DB設定
+database:
+  # "sqlite" or "postgresql"
+  type: "sqlite"
+  sqlite:
+    path: "./data/wasabi_monitor.db"
+  postgresql:
+    host: "localhost"
+    port: 5432
+    database: "wasabi_monitor"
+    user: "monitor"
+    password: "${DB_PASSWORD}"
+
+# Zabbix設定
+zabbix:
+  server: "127.0.0.1"
+  port: 10051
+  hostname: "wasabi-monitor"
+  # zabbix_sender バイナリパス
+  sender_path: "/usr/bin/zabbix_sender"
+
+# スケジューラ設定
+scheduler:
+  # ログ収集間隔（秒）
+  collection_interval: 300
+  # 分析間隔（秒）
+  analysis_interval: 300
+
+# 監視ルール設定
+monitoring:
+  # 不正アクセス監視
+  security:
+    # SEC-02: 403エラー閾値（件/5分）
+    error_403_threshold: 10
+    # SEC-04: データ流出検知閾値（バイト/時間）
+    data_exfil_bytes_threshold: 1073741824  # 1GB
+    # SEC-06: 大量DELETE閾値（件/5分）
+    mass_delete_threshold: 50
+    # SEC-07: 業務時間帯（JST）
+    business_hours:
+      start: 8
+      end: 22
+    # SEC-10: 許可するTLSバージョン
+    allowed_tls_versions:
+      - "TLSv1.2"
+      - "TLSv1.3"
+
+  # アップロード監視
+  upload:
+    # UPL-01: 期待するバックアップスケジュール
+    expected_schedules:
+      - name: "daily_backup"
+        key_pattern: "backup/daily/.*"
+        expected_hour_utc: 15  # JST 00:00
+        tolerance_minutes: 60
+    # UPL-02: サイズ異常検知の許容範囲（±%）
+    size_deviation_percent: 50
+    # UPL-05: マルチパート未完了タイムアウト（時間）
+    multipart_timeout_hours: 24
+
+  # 外部公開監視
+  public_access:
+    # PUB-05: 自社ドメインリスト
+    allowed_referer_domains:
+      - "example.com"
+      - "internal.example.co.jp"
+
+  # 運用監視
+  ops:
+    # OPS-01: ログ配送遅延閾値（秒）
+    log_delay_threshold: 1800  # 30分
+    # OPS-04: 日次ストレージ増分閾値（バイト）
+    daily_storage_increase_threshold: 10737418240  # 10GB
+
+# IPホワイトリスト
+ip_whitelist:
+  # 正規のアクセス元IP
+  allowed_ips:
+    - "192.168.1.0/24"
+    - "10.0.0.0/8"
+  # 正規のアクセス元IP（バックアップサーバ）
+  backup_server_ips:
+    - "203.0.113.10"
+
+# UserAgentブラックリスト
+ua_blacklist:
+  patterns:
+    - "sqlmap"
+    - "nikto"
+    - "nmap"
+    - "masscan"
+    - "dirbuster"
+    - "gobuster"
+    - "wpscan"
+    - "hydra"
+
+# ログ設定
+logging:
+  level: "INFO"
+  file: "./logs/wasabi_monitor.log"
+  max_bytes: 10485760  # 10MB
+  backup_count: 5
