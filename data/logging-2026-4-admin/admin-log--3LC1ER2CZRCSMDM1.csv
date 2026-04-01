@@ -1,0 +1,2 @@
+Method,Path,QueryString,Body,UserNum,RemoteAddr,StatusCode,TimeStamp,SessionName,RoleName
+POST,/,Logout,"Action: Logout  AccessKey: ZQ71NHOSRB8FBKG48P8N  ",100,106.146.30.203,200,2026-03-31T03:10:32.712555803Z,console-generated-key, 
