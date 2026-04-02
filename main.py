@@ -67,17 +67,14 @@ class MonitorApp:
 
     def analyze_and_alert(self):
         logger.info("--- Starting Log Analysis ---")
-        end_time = datetime.now()
-        # 一定間隔分より長めに取る場合はここを調整する
-        start_time = end_time - timedelta(seconds=self.analysis_interval)
         
         all_metrics = []
         try:
-            logger.info(f"Analyzing time window: {start_time} to {end_time}")
-            all_metrics.extend(self.security_analyzer.analyze(start_time, end_time))
-            all_metrics.extend(self.upload_analyzer.analyze(start_time, end_time))
-            all_metrics.extend(self.public_access_analyzer.analyze(start_time, end_time))
-            all_metrics.extend(self.ops_analyzer.analyze(start_time, end_time))
+            logger.info("Analyzing newly collected logs (analyzed=0)")
+            all_metrics.extend(self.security_analyzer.analyze())
+            all_metrics.extend(self.upload_analyzer.analyze())
+            all_metrics.extend(self.public_access_analyzer.analyze())
+            all_metrics.extend(self.ops_analyzer.analyze())
             
             # nullの場合は0にする
             all_metrics = [(k, v if v is not None else 0) for k, v in all_metrics]
@@ -91,6 +88,10 @@ class MonitorApp:
                     logger.info("Metrics successfully sent to Zabbix.")
                 else:
                     logger.warning("Failed to send some/all metrics to Zabbix. (expected if zabbix_sender is not configured)")
+            
+            # 処理に成功した場合、未処理だったログのステータスを既読に更新する
+            updated_count = self.db.mark_logs_as_analyzed()
+            logger.info(f"Marked {updated_count} logs as analyzed.")
                     
         except Exception as e:
             logger.error(f"Error during analysis or alerting phase: {e}")

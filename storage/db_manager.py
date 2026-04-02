@@ -11,6 +11,10 @@ from typing import List, Optional
 from datetime import datetime
 from .models import BucketLog, AuditLog
 
+# Patch sqlite built-in timestamp converter to avoid ValueError on +00 timezone string
+sqlite3.register_converter("timestamp", lambda v: v.decode("utf-8"))
+sqlite3.register_converter("TIMESTAMP", lambda v: v.decode("utf-8"))
+
 logger = logging.getLogger(__name__)
 
 class DBManager:
@@ -58,7 +62,8 @@ class DBManager:
                     authentication_type TEXT,
                     host_header TEXT,
                     tls_version TEXT,
-                    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+                    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+                    analyzed BOOLEAN DEFAULT 0
                 )
             ''')
             # 監査ログテーブル作成
@@ -72,9 +77,21 @@ class DBManager:
                     result TEXT,
                     source_ip TEXT,
                     raw_data TEXT,
-                    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+                    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+                    analyzed BOOLEAN DEFAULT 0
                 )
             ''')
+            
+            # マイグレーション: 既存テーブルへのカラム追加
+            try:
+                cursor.execute('ALTER TABLE bucket_logs ADD COLUMN analyzed BOOLEAN DEFAULT 0')
+            except sqlite3.OperationalError:
+                pass  # 既にある場合は無視
+
+            try:
+                cursor.execute('ALTER TABLE audit_logs ADD COLUMN analyzed BOOLEAN DEFAULT 0')
+            except sqlite3.OperationalError:
+                pass
             
             # インデックスの作成
             indexes_bucket = [
@@ -82,6 +99,7 @@ class DBManager:
                 "CREATE INDEX IF NOT EXISTS idx_bucket_time ON bucket_logs(request_time)",
                 "CREATE INDEX IF NOT EXISTS idx_bucket_op ON bucket_logs(operation)",
                 "CREATE INDEX IF NOT EXISTS idx_bucket_status ON bucket_logs(http_status)",
+                "CREATE INDEX IF NOT EXISTS idx_bucket_analyzed ON bucket_logs(analyzed)"
             ]
             for idx_query in indexes_bucket:
                 cursor.execute(idx_query)
@@ -89,7 +107,8 @@ class DBManager:
             indexes_audit = [
                 "CREATE INDEX IF NOT EXISTS idx_audit_time ON audit_logs(timestamp)",
                 "CREATE INDEX IF NOT EXISTS idx_audit_user ON audit_logs(user)",
-                "CREATE INDEX IF NOT EXISTS idx_audit_action ON audit_logs(action)"
+                "CREATE INDEX IF NOT EXISTS idx_audit_action ON audit_logs(action)",
+                "CREATE INDEX IF NOT EXISTS idx_audit_analyzed ON audit_logs(analyzed)"
             ]
             for idx_query in indexes_audit:
                 cursor.execute(idx_query)
@@ -104,6 +123,18 @@ class DBManager:
             
             conn.commit()
             logger.info("Database initialized successfully.")
+
+    def mark_logs_as_analyzed(self) -> int:
+        """未分析のログをすべて分析済みに更新し、更新した総件数を返す"""
+        updated_count = 0
+        with self._get_connection() as conn:
+            cursor = conn.cursor()
+            cursor.execute('UPDATE bucket_logs SET analyzed = 1 WHERE analyzed = 0')
+            updated_count += cursor.rowcount
+            cursor.execute('UPDATE audit_logs SET analyzed = 1 WHERE analyzed = 0')
+            updated_count += cursor.rowcount
+            conn.commit()
+        return updated_count
 
     def insert_bucket_logs(self, logs: List[BucketLog]) -> int:
         if not logs:

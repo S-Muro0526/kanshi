@@ -2,7 +2,8 @@
 # Path: wasabi-log-monitor/analyzers/ops_analyzer.py
 # Purpose: 運用監視の分析
 # Rationale: システム側のAPI問題やログ配送の遅延などを検知する
-# Last Modified: 2026-04-01
+# Key Dependencies: storage/db_manager.py
+# Last Modified: 2026-04-02
 ##
 import logging
 from typing import Dict, Any, List, Tuple
@@ -16,20 +17,19 @@ class OpsAnalyzer:
         self.config = config.get('monitoring', {}).get('ops', {})
         self.db = db_manager
 
-    def analyze(self, start_time: datetime, end_time: datetime) -> List[Tuple[str, Any]]:
+    def analyze(self) -> List[Tuple[str, Any]]:
         metrics = []
-        metrics.extend(self._analyze_bucket_logs(start_time, end_time))
+        metrics.extend(self._analyze_bucket_logs())
         return metrics
 
-    def _analyze_bucket_logs(self, start: datetime, end: datetime) -> List[Tuple[str, Any]]:
+    def _analyze_bucket_logs(self) -> List[Tuple[str, Any]]:
         metrics = []
 
-        # OPS-01: ログ配送遅延検知
-        # 最後に保存されたログの時間と現在の時間の差分
+        # OPS-01: ログ配送遅延検知（グローバル）
         res = self.db.execute_query('''
             SELECT MAX(request_time) FROM bucket_logs
         ''')
-        
+
         delay_seconds = 0
         if res and res[0][0]:
             last_log_time = res[0][0]
@@ -41,29 +41,37 @@ class OpsAnalyzer:
             if isinstance(last_log_time, datetime):
                 delay = datetime.now() - last_log_time
                 delay_seconds = delay.total_seconds()
-        
+
         metrics.append(('wasabi.ops.log_delay.seconds', delay_seconds))
 
-        # OPS-02: API スロットリング検知
+        # OPS-02: API スロットリング検知（バケット別）
         res = self.db.execute_query('''
-            SELECT COUNT(*) FROM bucket_logs 
-            WHERE request_time >= ? AND request_time < ? 
+            SELECT bucket, COUNT(*) FROM bucket_logs
+            WHERE analyzed = 0
             AND http_status IN (429, 503)
-        ''', (start, end))
-        count_throttle = res[0][0] if res else 0
-        metrics.append(('wasabi.ops.throttle.count', count_throttle))
+            GROUP BY bucket
+        ''')
+        total = 0
+        for bucket, count in res:
+            metrics.append((f'wasabi.ops.throttle.count[{bucket}]', count))
+            total += count
+        metrics.append(('wasabi.ops.throttle.count', total))
 
-        # OPS-03: レプリケーション正常性
-        # POCでは UPL-01 と被るため省略 または同様にカウントを返す
+        # OPS-03: レプリケーション正常性（グローバル）
         metrics.append(('wasabi.ops.replication.status', 1))
 
-        # OPS-04: ストレージ使用量の急増 (今回の処理期間の増加量)
+        # OPS-04: ストレージ使用量の急増（バケット別）
         res = self.db.execute_query('''
-            SELECT SUM(object_size) FROM bucket_logs 
-            WHERE request_time >= ? AND request_time < ? 
+            SELECT bucket, SUM(object_size) FROM bucket_logs
+            WHERE analyzed = 0
             AND operation = 'REST.PUT.OBJECT' AND http_status = 200
-        ''', (start, end))
-        added_bytes = res[0][0] if res and res[0][0] else 0
-        metrics.append(('wasabi.ops.storage_increase.bytes', added_bytes))
+            GROUP BY bucket
+        ''')
+        total = 0
+        for bucket, size in res:
+            val = size if size else 0
+            metrics.append((f'wasabi.ops.storage_increase.bytes[{bucket}]', val))
+            total += val
+        metrics.append(('wasabi.ops.storage_increase.bytes', total))
 
         return metrics

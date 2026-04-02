@@ -2,7 +2,8 @@
 # Path: wasabi-log-monitor/analyzers/public_access_analyzer.py
 # Purpose: 意図しない外部公開の監視
 # Rationale: パブリックアクセスの兆候やアクセス元から外部への漏洩リスクを検知する
-# Last Modified: 2026-04-01
+# Key Dependencies: storage/db_manager.py
+# Last Modified: 2026-04-02
 ##
 import logging
 from typing import Dict, Any, List, Tuple
@@ -17,90 +18,117 @@ class PublicAccessAnalyzer:
         self.allowed_referers = self.config.get('allowed_referer_domains', [])
         self.db = db_manager
 
-    def analyze(self, start_time: datetime, end_time: datetime) -> List[Tuple[str, Any]]:
+    def analyze(self) -> List[Tuple[str, Any]]:
         metrics = []
-        metrics.extend(self._analyze_bucket_logs(start_time, end_time))
-        metrics.extend(self._analyze_audit_logs(start_time, end_time))
+        metrics.extend(self._analyze_bucket_logs())
+        metrics.extend(self._analyze_audit_logs())
         return metrics
 
-    def _analyze_bucket_logs(self, start: datetime, end: datetime) -> List[Tuple[str, Any]]:
+    def _analyze_bucket_logs(self) -> List[Tuple[str, Any]]:
         metrics = []
 
-        # PUB-01: 匿名GETアクセス検知
+        # PUB-01: 匿名GETアクセス検知（バケット別）
         res = self.db.execute_query('''
-            SELECT COUNT(*) FROM bucket_logs 
-            WHERE request_time >= ? AND request_time < ? 
+            SELECT bucket, COUNT(*) FROM bucket_logs
+            WHERE analyzed = 0
             AND requester = '-' AND operation = 'REST.GET.OBJECT' AND http_status = 200
-        ''', (start, end))
-        count_anon_get = res[0][0] if res else 0
-        metrics.append(('wasabi.pub.anon_get.count', count_anon_get))
+            GROUP BY bucket
+        ''')
+        total = 0
+        for bucket, count in res:
+            metrics.append((f'wasabi.pub.anon_get.count[{bucket}]', count))
+            total += count
+        metrics.append(('wasabi.pub.anon_get.count', total))
 
-        # PUB-03: ACL変更検知
+        # PUB-03: ACL変更検知（バケット別）
         res = self.db.execute_query('''
-            SELECT COUNT(*) FROM bucket_logs 
-            WHERE request_time >= ? AND request_time < ? 
+            SELECT bucket, COUNT(*) FROM bucket_logs
+            WHERE analyzed = 0
             AND operation IN ('REST.PUT.OBJECT_ACL', 'REST.PUT.BUCKET_ACL')
-        ''', (start, end))
-        count_acl = res[0][0] if res else 0
-        metrics.append(('wasabi.pub.acl_change.count', count_acl))
+            GROUP BY bucket
+        ''')
+        total = 0
+        for bucket, count in res:
+            metrics.append((f'wasabi.pub.acl_change.count[{bucket}]', count))
+            total += count
+        metrics.append(('wasabi.pub.acl_change.count', total))
 
-        # PUB-05: 外部リファラーからのアクセス
+        # PUB-05: 外部リファラーからのアクセス（バケット別）
         res = self.db.execute_query('''
-            SELECT referer FROM bucket_logs 
-            WHERE request_time >= ? AND request_time < ? 
+            SELECT bucket, referer FROM bucket_logs
+            WHERE analyzed = 0
             AND referer != '-'
-        ''', (start, end))
-        
-        external_referer_count = 0
-        for (referer,) in res:
+        ''')
+
+        ext_ref_by_bucket = {}
+        for bucket, referer in res:
             if referer:
-                # 許可リストに含まれていなければカウント
                 is_allowed = any(domain in referer for domain in self.allowed_referers)
                 if not is_allowed:
-                    external_referer_count += 1
-                
-        metrics.append(('wasabi.pub.external_referer.count', external_referer_count))
+                    ext_ref_by_bucket[bucket] = ext_ref_by_bucket.get(bucket, 0) + 1
 
-        # PUB-06: バケットリスト操作の匿名アクセス
+        total = 0
+        for bucket, count in ext_ref_by_bucket.items():
+            metrics.append((f'wasabi.pub.external_referer.count[{bucket}]', count))
+            total += count
+        metrics.append(('wasabi.pub.external_referer.count', total))
+
+        # PUB-06: バケットリスト操作の匿名アクセス（バケット別）
         res = self.db.execute_query('''
-            SELECT COUNT(*) FROM bucket_logs 
-            WHERE request_time >= ? AND request_time < ? 
+            SELECT bucket, COUNT(*) FROM bucket_logs
+            WHERE analyzed = 0
             AND requester = '-' AND operation = 'REST.GET.BUCKET' AND http_status = 200
-        ''', (start, end))
-        count_anon_list = res[0][0] if res else 0
-        metrics.append(('wasabi.pub.anon_list.count', count_anon_list))
+            GROUP BY bucket
+        ''')
+        total = 0
+        for bucket, count in res:
+            metrics.append((f'wasabi.pub.anon_list.count[{bucket}]', count))
+            total += count
+        metrics.append(('wasabi.pub.anon_list.count', total))
 
-        # PUB-07: ブラウザからの直接アクセス (簡易判定)
+        # PUB-07: ブラウザからの直接アクセス（バケット別）
         res = self.db.execute_query('''
-            SELECT COUNT(*) FROM bucket_logs 
-            WHERE request_time >= ? AND request_time < ? 
+            SELECT bucket, COUNT(*) FROM bucket_logs
+            WHERE analyzed = 0
             AND operation = 'REST.GET.OBJECT' AND http_status = 200
             AND (LOWER(user_agent) LIKE '%mozilla%' OR LOWER(user_agent) LIKE '%chrome%' OR LOWER(user_agent) LIKE '%safari%')
-        ''', (start, end))
-        count_browser = res[0][0] if res else 0
-        metrics.append(('wasabi.pub.browser_access.count', count_browser))
+            GROUP BY bucket
+        ''')
+        total = 0
+        for bucket, count in res:
+            metrics.append((f'wasabi.pub.browser_access.count[{bucket}]', count))
+            total += count
+        metrics.append(('wasabi.pub.browser_access.count', total))
 
         return metrics
 
-    def _analyze_audit_logs(self, start: datetime, end: datetime) -> List[Tuple[str, Any]]:
+    def _analyze_audit_logs(self) -> List[Tuple[str, Any]]:
         metrics = []
 
-        # PUB-02: バケットポリシー変更検知
+        # PUB-02: バケットポリシー変更検知（ユーザー別）
         res = self.db.execute_query('''
-            SELECT COUNT(*) FROM audit_logs 
-            WHERE timestamp >= ? AND timestamp < ? 
+            SELECT user, COUNT(*) FROM audit_logs
+            WHERE analyzed = 0
             AND LOWER(action) LIKE '%bucketpolicy%'
-        ''', (start, end))
-        count_policy = res[0][0] if res else 0
-        metrics.append(('wasabi.pub.policy_change.count', count_policy))
+            GROUP BY user
+        ''')
+        total = 0
+        for user, count in res:
+            metrics.append((f'wasabi.pub.policy_change.count[{user}]', count))
+            total += count
+        metrics.append(('wasabi.pub.policy_change.count', total))
 
-        # PUB-04: パブリックアクセス設定変更
+        # PUB-04: パブリックアクセス設定変更（ユーザー別）
         res = self.db.execute_query('''
-            SELECT COUNT(*) FROM audit_logs 
-            WHERE timestamp >= ? AND timestamp < ? 
+            SELECT user, COUNT(*) FROM audit_logs
+            WHERE analyzed = 0
             AND LOWER(action) LIKE '%publicaccess%'
-        ''', (start, end))
-        count_pub_config = res[0][0] if res else 0
-        metrics.append(('wasabi.pub.public_config_change.count', count_pub_config))
+            GROUP BY user
+        ''')
+        total = 0
+        for user, count in res:
+            metrics.append((f'wasabi.pub.public_config_change.count[{user}]', count))
+            total += count
+        metrics.append(('wasabi.pub.public_config_change.count', total))
 
         return metrics
