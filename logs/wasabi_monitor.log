@@ -27,3 +27,15 @@
 2026-04-01 21:31:10,569 - storage.db_manager - INFO - Database initialized successfully.
 2026-04-01 21:31:17,696 - storage.db_manager - INFO - Database initialized successfully.
 2026-04-01 21:31:36,757 - storage.db_manager - INFO - Database initialized successfully.
+2026-04-05 23:57:03,245 - storage.db_manager - INFO - Database initialized successfully.
+2026-04-05 23:57:03,405 - main - INFO - --- Starting Log Collection ---
+2026-04-05 23:57:03,405 - collectors.bucket_log_collector - INFO - Starting bucket log collection from log-storage-bucket/
+2026-04-05 23:57:04,434 - collectors.bucket_log_collector - ERROR - Error during bucket log collection: An error occurred (InvalidAccessKeyId) when calling the ListObjectsV2 operation: The AWS Access Key Id you provided does not exist in our records.
+2026-04-05 23:57:04,435 - collectors.audit_log_collector - INFO - Starting audit log collection from bucket log-storage-bucket/audit-logs/
+2026-04-05 23:57:05,477 - collectors.audit_log_collector - ERROR - Error collecting audit logs from bucket: An error occurred (InvalidAccessKeyId) when calling the ListObjectsV2 operation: The AWS Access Key Id you provided does not exist in our records.
+2026-04-05 23:57:05,477 - main - INFO - Colletion summary: BucketLogs=0, AuditLogs=0
+2026-04-05 23:57:05,477 - main - INFO - --- Starting Log Analysis ---
+2026-04-05 23:57:05,477 - main - INFO - Analyzing time window: 2026-04-05 23:52:05.477605 to 2026-04-05 23:57:05.477605
+2026-04-05 23:57:05,488 - main - INFO - Generated 27 metrics.
+2026-04-05 23:57:05,493 - alerting.zabbix_sender - ERROR - zabbix_sender executable not found at /usr/bin/zabbix_sender. Ensure it is installed.
+2026-04-05 23:57:05,493 - main - WARNING - Failed to send some/all metrics to Zabbix. (expected if zabbix_sender is not configured)
