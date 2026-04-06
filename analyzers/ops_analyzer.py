@@ -6,7 +6,7 @@
 ##
 import logging
 from typing import Dict, Any, List, Tuple
-from datetime import datetime
+from datetime import datetime, timezone
 from storage.db_manager import DBManager
 
 logger = logging.getLogger(__name__)
@@ -39,7 +39,7 @@ class OpsAnalyzer:
                 except ValueError:
                     pass
             if isinstance(last_log_time, datetime):
-                delay = datetime.now() - last_log_time
+                delay = datetime.now(timezone.utc) - last_log_time
                 delay_seconds = delay.total_seconds()
         
         metrics.append(('wasabi.ops.log_delay.seconds', delay_seconds))

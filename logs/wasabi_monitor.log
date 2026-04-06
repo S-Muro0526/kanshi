@@ -27,3 +27,303 @@
 2026-04-01 21:31:10,569 - storage.db_manager - INFO - Database initialized successfully.
 2026-04-01 21:31:17,696 - storage.db_manager - INFO - Database initialized successfully.
 2026-04-01 21:31:36,757 - storage.db_manager - INFO - Database initialized successfully.
+2026-04-06 15:25:03,608 - main - INFO - Initializing Wasabi Log Monitor POC...
+2026-04-06 15:25:03,768 - storage.db_manager - INFO - Database initialized successfully.
+2026-04-06 15:25:03,768 - main - INFO - --- Starting Log Collection ---
+2026-04-06 15:25:03,768 - collectors.bucket_log_collector - INFO - Starting bucket log collection from local path ./test/bucket_logs/
+2026-04-06 15:25:09,833 - collectors.bucket_log_collector - INFO - Bucket log collection (local) completed. Inserted 6593 new records.
+2026-04-06 15:25:09,836 - collectors.audit_log_collector - INFO - Starting audit log collection from local path ./test/audit_logs/
+2026-04-06 15:25:10,418 - collectors.audit_log_collector - INFO - Audit log collection (local) completed. Inserted 261 records.
+2026-04-06 15:25:10,418 - main - INFO - Colletion summary: BucketLogs=6593, AuditLogs=261
+2026-04-06 15:25:10,418 - main - INFO - --- Starting Log Analysis ---
+2026-04-06 15:25:10,418 - main - INFO - Analyzing time window: 2026-04-06 15:20:10.418765 to 2026-04-06 15:25:10.418765
+2026-04-06 15:25:10,514 - main - ERROR - Error during analysis or alerting phase: can't subtract offset-naive and offset-aware datetimes
+2026-04-06 15:25:10,696 - apscheduler.scheduler - INFO - Adding job tentatively -- it will be properly scheduled when the scheduler starts
+2026-04-06 15:25:10,696 - main - INFO - Scheduler started with interval 300 seconds. Press Ctrl+C to exit.
+2026-04-06 15:25:10,702 - apscheduler.scheduler - INFO - Added job "MonitorApp.run_job" to job store "default"
+2026-04-06 15:25:10,703 - apscheduler.scheduler - INFO - Scheduler started
+2026-04-06 15:30:10,709 - apscheduler.executors.default - INFO - Running job "MonitorApp.run_job (trigger: interval[0:05:00], next run at: 2026-04-06 15:30:10 JST)" (scheduled at 2026-04-06 15:30:10.696198+09:00)
+2026-04-06 15:30:10,713 - main - INFO - --- Starting Log Collection ---
+2026-04-06 15:30:10,713 - collectors.bucket_log_collector - INFO - Starting bucket log collection from local path ./test/bucket_logs/
+2026-04-06 15:30:10,802 - collectors.bucket_log_collector - INFO - Bucket log collection (local) completed. Inserted 0 new records.
+2026-04-06 15:30:10,805 - collectors.audit_log_collector - INFO - Starting audit log collection from local path ./test/audit_logs/
+2026-04-06 15:30:10,811 - collectors.audit_log_collector - INFO - Audit log collection (local) completed. Inserted 0 records.
+2026-04-06 15:30:10,811 - main - INFO - Colletion summary: BucketLogs=0, AuditLogs=0
+2026-04-06 15:30:10,816 - main - INFO - --- Starting Log Analysis ---
+2026-04-06 15:30:10,816 - main - INFO - Analyzing time window: 2026-04-06 15:25:10.816847 to 2026-04-06 15:30:10.816847
+2026-04-06 15:30:10,927 - main - ERROR - Error during analysis or alerting phase: can't subtract offset-naive and offset-aware datetimes
+2026-04-06 15:30:10,927 - apscheduler.executors.default - INFO - Job "MonitorApp.run_job (trigger: interval[0:05:00], next run at: 2026-04-06 15:35:10 JST)" executed successfully
+2026-04-06 15:35:10,705 - apscheduler.executors.default - INFO - Running job "MonitorApp.run_job (trigger: interval[0:05:00], next run at: 2026-04-06 15:40:10 JST)" (scheduled at 2026-04-06 15:35:10.696198+09:00)
+2026-04-06 15:35:10,706 - main - INFO - --- Starting Log Collection ---
+2026-04-06 15:35:10,709 - collectors.bucket_log_collector - INFO - Starting bucket log collection from local path ./test/bucket_logs/
+2026-04-06 15:35:10,899 - collectors.bucket_log_collector - INFO - Bucket log collection (local) completed. Inserted 0 new records.
+2026-04-06 15:35:10,899 - collectors.audit_log_collector - INFO - Starting audit log collection from local path ./test/audit_logs/
+2026-04-06 15:35:10,923 - collectors.audit_log_collector - INFO - Audit log collection (local) completed. Inserted 0 records.
+2026-04-06 15:35:10,926 - main - INFO - Colletion summary: BucketLogs=0, AuditLogs=0
+2026-04-06 15:35:10,926 - main - INFO - --- Starting Log Analysis ---
+2026-04-06 15:35:10,929 - main - INFO - Analyzing time window: 2026-04-06 15:30:10.929437 to 2026-04-06 15:35:10.929437
+2026-04-06 15:35:11,132 - main - ERROR - Error during analysis or alerting phase: can't subtract offset-naive and offset-aware datetimes
+2026-04-06 15:35:11,134 - apscheduler.executors.default - INFO - Job "MonitorApp.run_job (trigger: interval[0:05:00], next run at: 2026-04-06 15:40:10 JST)" executed successfully
+2026-04-06 15:40:10,708 - apscheduler.executors.default - INFO - Running job "MonitorApp.run_job (trigger: interval[0:05:00], next run at: 2026-04-06 15:45:10 JST)" (scheduled at 2026-04-06 15:40:10.696198+09:00)
+2026-04-06 15:40:10,710 - main - INFO - --- Starting Log Collection ---
+2026-04-06 15:40:10,710 - collectors.bucket_log_collector - INFO - Starting bucket log collection from local path ./test/bucket_logs/
+2026-04-06 15:40:10,887 - collectors.bucket_log_collector - INFO - Bucket log collection (local) completed. Inserted 0 new records.
+2026-04-06 15:40:10,891 - collectors.audit_log_collector - INFO - Starting audit log collection from local path ./test/audit_logs/
+2026-04-06 15:40:10,938 - collectors.audit_log_collector - INFO - Audit log collection (local) completed. Inserted 0 records.
+2026-04-06 15:40:10,938 - main - INFO - Colletion summary: BucketLogs=0, AuditLogs=0
+2026-04-06 15:40:10,938 - main - INFO - --- Starting Log Analysis ---
+2026-04-06 15:40:10,939 - main - INFO - Analyzing time window: 2026-04-06 15:35:10.939787 to 2026-04-06 15:40:10.939787
+2026-04-06 15:40:11,116 - main - ERROR - Error during analysis or alerting phase: can't subtract offset-naive and offset-aware datetimes
+2026-04-06 15:40:11,116 - apscheduler.executors.default - INFO - Job "MonitorApp.run_job (trigger: interval[0:05:00], next run at: 2026-04-06 15:45:10 JST)" executed successfully
+2026-04-06 15:45:10,706 - apscheduler.executors.default - INFO - Running job "MonitorApp.run_job (trigger: interval[0:05:00], next run at: 2026-04-06 15:50:10 JST)" (scheduled at 2026-04-06 15:45:10.696198+09:00)
+2026-04-06 15:45:10,707 - main - INFO - --- Starting Log Collection ---
+2026-04-06 15:45:10,707 - collectors.bucket_log_collector - INFO - Starting bucket log collection from local path ./test/bucket_logs/
+2026-04-06 15:45:10,892 - collectors.bucket_log_collector - INFO - Bucket log collection (local) completed. Inserted 0 new records.
+2026-04-06 15:45:10,892 - collectors.audit_log_collector - INFO - Starting audit log collection from local path ./test/audit_logs/
+2026-04-06 15:45:10,917 - collectors.audit_log_collector - INFO - Audit log collection (local) completed. Inserted 0 records.
+2026-04-06 15:45:10,917 - main - INFO - Colletion summary: BucketLogs=0, AuditLogs=0
+2026-04-06 15:45:10,917 - main - INFO - --- Starting Log Analysis ---
+2026-04-06 15:45:10,917 - main - INFO - Analyzing time window: 2026-04-06 15:40:10.917239 to 2026-04-06 15:45:10.917239
+2026-04-06 15:45:11,087 - main - ERROR - Error during analysis or alerting phase: can't subtract offset-naive and offset-aware datetimes
+2026-04-06 15:45:11,087 - apscheduler.executors.default - INFO - Job "MonitorApp.run_job (trigger: interval[0:05:00], next run at: 2026-04-06 15:50:10 JST)" executed successfully
+2026-04-06 15:50:10,703 - apscheduler.executors.default - INFO - Running job "MonitorApp.run_job (trigger: interval[0:05:00], next run at: 2026-04-06 15:55:10 JST)" (scheduled at 2026-04-06 15:50:10.696198+09:00)
+2026-04-06 15:50:10,703 - main - INFO - --- Starting Log Collection ---
+2026-04-06 15:50:10,703 - collectors.bucket_log_collector - INFO - Starting bucket log collection from local path ./test/bucket_logs/
+2026-04-06 15:50:10,946 - collectors.bucket_log_collector - INFO - Bucket log collection (local) completed. Inserted 0 new records.
+2026-04-06 15:50:10,946 - collectors.audit_log_collector - INFO - Starting audit log collection from local path ./test/audit_logs/
+2026-04-06 15:50:10,962 - collectors.audit_log_collector - INFO - Audit log collection (local) completed. Inserted 0 records.
+2026-04-06 15:50:10,962 - main - INFO - Colletion summary: BucketLogs=0, AuditLogs=0
+2026-04-06 15:50:10,962 - main - INFO - --- Starting Log Analysis ---
+2026-04-06 15:50:10,966 - main - INFO - Analyzing time window: 2026-04-06 15:45:10.962857 to 2026-04-06 15:50:10.962857
+2026-04-06 15:50:11,141 - main - ERROR - Error during analysis or alerting phase: can't subtract offset-naive and offset-aware datetimes
+2026-04-06 15:50:11,141 - apscheduler.executors.default - INFO - Job "MonitorApp.run_job (trigger: interval[0:05:00], next run at: 2026-04-06 15:55:10 JST)" executed successfully
+2026-04-06 15:55:10,707 - apscheduler.executors.default - INFO - Running job "MonitorApp.run_job (trigger: interval[0:05:00], next run at: 2026-04-06 16:00:10 JST)" (scheduled at 2026-04-06 15:55:10.696198+09:00)
+2026-04-06 15:55:10,707 - main - INFO - --- Starting Log Collection ---
+2026-04-06 15:55:10,707 - collectors.bucket_log_collector - INFO - Starting bucket log collection from local path ./test/bucket_logs/
+2026-04-06 15:55:10,910 - collectors.bucket_log_collector - INFO - Bucket log collection (local) completed. Inserted 0 new records.
+2026-04-06 15:55:10,910 - collectors.audit_log_collector - INFO - Starting audit log collection from local path ./test/audit_logs/
+2026-04-06 15:55:10,929 - collectors.audit_log_collector - INFO - Audit log collection (local) completed. Inserted 0 records.
+2026-04-06 15:55:10,929 - main - INFO - Colletion summary: BucketLogs=0, AuditLogs=0
+2026-04-06 15:55:10,931 - main - INFO - --- Starting Log Analysis ---
+2026-04-06 15:55:10,931 - main - INFO - Analyzing time window: 2026-04-06 15:50:10.931262 to 2026-04-06 15:55:10.931262
+2026-04-06 15:55:11,097 - main - ERROR - Error during analysis or alerting phase: can't subtract offset-naive and offset-aware datetimes
+2026-04-06 15:55:11,097 - apscheduler.executors.default - INFO - Job "MonitorApp.run_job (trigger: interval[0:05:00], next run at: 2026-04-06 16:00:10 JST)" executed successfully
+2026-04-06 16:00:10,702 - apscheduler.executors.default - INFO - Running job "MonitorApp.run_job (trigger: interval[0:05:00], next run at: 2026-04-06 16:05:10 JST)" (scheduled at 2026-04-06 16:00:10.696198+09:00)
+2026-04-06 16:00:10,702 - main - INFO - --- Starting Log Collection ---
+2026-04-06 16:00:10,702 - collectors.bucket_log_collector - INFO - Starting bucket log collection from local path ./test/bucket_logs/
+2026-04-06 16:00:10,927 - collectors.bucket_log_collector - INFO - Bucket log collection (local) completed. Inserted 0 new records.
+2026-04-06 16:00:10,927 - collectors.audit_log_collector - INFO - Starting audit log collection from local path ./test/audit_logs/
+2026-04-06 16:00:10,951 - collectors.audit_log_collector - INFO - Audit log collection (local) completed. Inserted 0 records.
+2026-04-06 16:00:10,951 - main - INFO - Colletion summary: BucketLogs=0, AuditLogs=0
+2026-04-06 16:00:10,951 - main - INFO - --- Starting Log Analysis ---
+2026-04-06 16:00:10,951 - main - INFO - Analyzing time window: 2026-04-06 15:55:10.951005 to 2026-04-06 16:00:10.951005
+2026-04-06 16:00:11,160 - main - ERROR - Error during analysis or alerting phase: can't subtract offset-naive and offset-aware datetimes
+2026-04-06 16:00:11,160 - apscheduler.executors.default - INFO - Job "MonitorApp.run_job (trigger: interval[0:05:00], next run at: 2026-04-06 16:05:10 JST)" executed successfully
+2026-04-06 16:13:00,485 - apscheduler.executors.default - WARNING - Run time of job "MonitorApp.run_job (trigger: interval[0:05:00], next run at: 2026-04-06 16:15:10 JST)" was missed by 0:02:49.789411
+2026-04-06 16:15:10,704 - apscheduler.executors.default - INFO - Running job "MonitorApp.run_job (trigger: interval[0:05:00], next run at: 2026-04-06 16:20:10 JST)" (scheduled at 2026-04-06 16:15:10.696198+09:00)
+2026-04-06 16:15:10,705 - main - INFO - --- Starting Log Collection ---
+2026-04-06 16:15:10,705 - collectors.bucket_log_collector - INFO - Starting bucket log collection from local path ./test/bucket_logs/
+2026-04-06 16:15:10,912 - collectors.bucket_log_collector - INFO - Bucket log collection (local) completed. Inserted 0 new records.
+2026-04-06 16:15:10,912 - collectors.audit_log_collector - INFO - Starting audit log collection from local path ./test/audit_logs/
+2026-04-06 16:15:10,932 - collectors.audit_log_collector - INFO - Audit log collection (local) completed. Inserted 0 records.
+2026-04-06 16:15:10,932 - main - INFO - Colletion summary: BucketLogs=0, AuditLogs=0
+2026-04-06 16:15:10,936 - main - INFO - --- Starting Log Analysis ---
+2026-04-06 16:15:10,936 - main - INFO - Analyzing time window: 2026-04-06 16:10:10.936408 to 2026-04-06 16:15:10.936408
+2026-04-06 16:15:11,119 - main - ERROR - Error during analysis or alerting phase: can't subtract offset-naive and offset-aware datetimes
+2026-04-06 16:15:11,121 - apscheduler.executors.default - INFO - Job "MonitorApp.run_job (trigger: interval[0:05:00], next run at: 2026-04-06 16:20:10 JST)" executed successfully
+2026-04-06 16:20:10,726 - apscheduler.executors.default - INFO - Running job "MonitorApp.run_job (trigger: interval[0:05:00], next run at: 2026-04-06 16:25:10 JST)" (scheduled at 2026-04-06 16:20:10.696198+09:00)
+2026-04-06 16:20:10,726 - main - INFO - --- Starting Log Collection ---
+2026-04-06 16:20:10,726 - collectors.bucket_log_collector - INFO - Starting bucket log collection from local path ./test/bucket_logs/
+2026-04-06 16:20:10,936 - collectors.bucket_log_collector - INFO - Bucket log collection (local) completed. Inserted 0 new records.
+2026-04-06 16:20:10,936 - collectors.audit_log_collector - INFO - Starting audit log collection from local path ./test/audit_logs/
+2026-04-06 16:20:10,948 - collectors.audit_log_collector - INFO - Audit log collection (local) completed. Inserted 0 records.
+2026-04-06 16:20:10,948 - main - INFO - Colletion summary: BucketLogs=0, AuditLogs=0
+2026-04-06 16:20:10,955 - main - INFO - --- Starting Log Analysis ---
+2026-04-06 16:20:10,955 - main - INFO - Analyzing time window: 2026-04-06 16:15:10.955561 to 2026-04-06 16:20:10.955561
+2026-04-06 16:20:11,114 - main - ERROR - Error during analysis or alerting phase: can't subtract offset-naive and offset-aware datetimes
+2026-04-06 16:20:11,114 - apscheduler.executors.default - INFO - Job "MonitorApp.run_job (trigger: interval[0:05:00], next run at: 2026-04-06 16:25:10 JST)" executed successfully
+2026-04-06 16:24:45,377 - main - INFO - Initializing Wasabi Log Monitor POC...
+2026-04-06 16:24:45,429 - storage.db_manager - INFO - Database initialized successfully.
+2026-04-06 16:24:45,433 - main - INFO - --- Starting Log Collection ---
+2026-04-06 16:24:45,434 - collectors.bucket_log_collector - INFO - Starting bucket log collection from local path ./test/bucket_logs/
+2026-04-06 16:24:45,526 - collectors.bucket_log_collector - INFO - Bucket log collection (local) completed. Inserted 0 new records.
+2026-04-06 16:24:45,527 - collectors.audit_log_collector - INFO - Starting audit log collection from local path ./test/audit_logs/
+2026-04-06 16:24:45,537 - collectors.audit_log_collector - INFO - Audit log collection (local) completed. Inserted 0 records.
+2026-04-06 16:24:45,537 - main - INFO - Colletion summary: BucketLogs=0, AuditLogs=0
+2026-04-06 16:24:45,538 - main - INFO - --- Starting Log Analysis ---
+2026-04-06 16:24:45,538 - main - INFO - Local test mode: analyzing ALL data in database.
+2026-04-06 16:24:45,539 - main - INFO - Analyzing time window: 2020-01-01 00:00:00+00:00 to 2026-04-06 07:24:45.538594+00:00
+2026-04-06 16:24:45,757 - main - ERROR - Error during analysis or alerting phase: invalid literal for int() with base 10: b'07+00'
+Traceback (most recent call last):
+  File "C:\Users\smuroyama8900\OneDrive - 株式会社ベイカレント\ドキュメント\antigravity\kanshi-main\main.py", line 95, in analyze_and_alert
+    all_metrics.extend(self.security_analyzer.analyze(start_time, end_time))
+                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\smuroyama8900\OneDrive - 株式会社ベイカレント\ドキュメント\antigravity\kanshi-main\analyzers\security_analyzer.py", line 26, in analyze
+    metrics.extend(self._analyze_bucket_logs(start_time, end_time))
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\smuroyama8900\OneDrive - 株式会社ベイカレント\ドキュメント\antigravity\kanshi-main\analyzers\security_analyzer.py", line 116, in _analyze_bucket_logs
+    off_hours_res = self.db.execute_query('''
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\smuroyama8900\OneDrive - 株式会社ベイカレント\ドキュメント\antigravity\kanshi-main\storage\db_manager.py", line 176, in execute_query
+    return cursor.fetchall()
+           ^^^^^^^^^^^^^^^^^
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.12_3.12.2800.0_x64__qbz5n2kfra8p0\Lib\sqlite3\dbapi2.py", line 80, in convert_timestamp
+    hours, minutes, seconds = map(int, timepart_full[0].split(b":"))
+    ^^^^^^^^^^^^^^^^^^^^^^^
+ValueError: invalid literal for int() with base 10: b'07+00'
+2026-04-06 16:24:45,825 - main - INFO - Local test mode completed. Check output.txt for results.
+2026-04-06 16:25:57,523 - apscheduler.executors.default - WARNING - Run time of job "MonitorApp.run_job (trigger: interval[0:05:00], next run at: 2026-04-06 16:30:10 JST)" was missed by 0:00:46.827486
+2026-04-06 16:30:10,699 - apscheduler.executors.default - INFO - Running job "MonitorApp.run_job (trigger: interval[0:05:00], next run at: 2026-04-06 16:35:10 JST)" (scheduled at 2026-04-06 16:30:10.696198+09:00)
+2026-04-06 16:30:10,701 - main - INFO - --- Starting Log Collection ---
+2026-04-06 16:30:10,701 - collectors.bucket_log_collector - INFO - Starting bucket log collection from local path ./test/bucket_logs/
+2026-04-06 16:30:10,767 - collectors.bucket_log_collector - INFO - Bucket log collection (local) completed. Inserted 0 new records.
+2026-04-06 16:30:10,767 - collectors.audit_log_collector - INFO - Starting audit log collection from local path ./test/audit_logs/
+2026-04-06 16:30:10,773 - collectors.audit_log_collector - INFO - Audit log collection (local) completed. Inserted 0 records.
+2026-04-06 16:30:10,773 - main - INFO - Colletion summary: BucketLogs=0, AuditLogs=0
+2026-04-06 16:30:10,773 - main - INFO - --- Starting Log Analysis ---
+2026-04-06 16:30:10,773 - main - INFO - Analyzing time window: 2026-04-06 16:25:10.773183 to 2026-04-06 16:30:10.773183
+2026-04-06 16:30:10,821 - main - ERROR - Error during analysis or alerting phase: can't subtract offset-naive and offset-aware datetimes
+2026-04-06 16:30:10,821 - apscheduler.executors.default - INFO - Job "MonitorApp.run_job (trigger: interval[0:05:00], next run at: 2026-04-06 16:35:10 JST)" executed successfully
+2026-04-06 16:31:46,898 - main - INFO - Initializing Wasabi Log Monitor POC...
+2026-04-06 16:31:46,929 - storage.db_manager - INFO - Database initialized successfully.
+2026-04-06 16:31:46,929 - main - INFO - --- Starting Log Collection ---
+2026-04-06 16:31:46,930 - collectors.bucket_log_collector - INFO - Starting bucket log collection from local path ./test/bucket_logs/
+2026-04-06 16:31:47,000 - collectors.bucket_log_collector - INFO - Bucket log collection (local) completed. Inserted 0 new records.
+2026-04-06 16:31:47,001 - collectors.audit_log_collector - INFO - Starting audit log collection from local path ./test/audit_logs/
+2026-04-06 16:31:47,010 - collectors.audit_log_collector - INFO - Audit log collection (local) completed. Inserted 0 records.
+2026-04-06 16:31:47,010 - main - INFO - Colletion summary: BucketLogs=0, AuditLogs=0
+2026-04-06 16:31:47,010 - main - INFO - --- Starting Log Analysis ---
+2026-04-06 16:31:47,011 - main - INFO - Local test mode: analyzing ALL data in database.
+2026-04-06 16:31:47,011 - main - INFO - Analyzing time window: 2020-01-01 00:00:00+00:00 to 2026-04-06 07:31:47.010556+00:00
+2026-04-06 16:31:47,176 - main - INFO - Generated 27 metrics.
+2026-04-06 16:31:47,177 - main - INFO - ========== Analysis Results ==========
+2026-04-06 16:31:47,177 - main - INFO -   wasabi.sec.unauth_access.count: 0
+2026-04-06 16:31:47,177 - main - INFO -   wasabi.sec.403_error.count: 96
+2026-04-06 16:31:47,177 - main - INFO -   wasabi.sec.unknown_ip.count: 6593
+2026-04-06 16:31:47,178 - main - INFO -   wasabi.sec.data_exfil.bytes: 15097109752
+2026-04-06 16:31:47,178 - main - INFO -   wasabi.sec.suspicious_ua.count: 0
+2026-04-06 16:31:47,178 - main - INFO -   wasabi.sec.delete_ops.count: 0
+2026-04-06 16:31:47,178 - main - INFO -   wasabi.sec.off_hours.count: 1290
+2026-04-06 16:31:47,178 - main - INFO -   wasabi.sec.weak_tls.count: 6593
+2026-04-06 16:31:47,178 - main - INFO -   wasabi.sec.admin_fail.count: 0
+2026-04-06 16:31:47,178 - main - INFO -   wasabi.sec.root_usage.count: 0
+2026-04-06 16:31:47,179 - main - INFO -   wasabi.upl.scheduled.status: 0
+2026-04-06 16:31:47,179 - main - INFO -   wasabi.upl.upload.bytes: 190588
+2026-04-06 16:31:47,179 - main - INFO -   wasabi.upl.upload_failure.count: 16
+2026-04-06 16:31:47,179 - main - INFO -   wasabi.upl.unknown_ip.count: 1
+2026-04-06 16:31:47,179 - main - INFO -   wasabi.upl.multipart_uncompleted.count: 0
+2026-04-06 16:31:47,179 - main - INFO -   wasabi.upl.daily_upload.count: 31
+2026-04-06 16:31:47,179 - main - INFO -   wasabi.pub.anon_get.count: 0
+2026-04-06 16:31:47,179 - main - INFO -   wasabi.pub.acl_change.count: 0
+2026-04-06 16:31:47,179 - main - INFO -   wasabi.pub.external_referer.count: 0
+2026-04-06 16:31:47,179 - main - INFO -   wasabi.pub.anon_list.count: 0
+2026-04-06 16:31:47,179 - main - INFO -   wasabi.pub.browser_access.count: 0
+2026-04-06 16:31:47,179 - main - INFO -   wasabi.pub.policy_change.count: 0
+2026-04-06 16:31:47,179 - main - INFO -   wasabi.pub.public_config_change.count: 0
+2026-04-06 16:31:47,179 - main - INFO -   wasabi.ops.log_delay.seconds: 406538.169792
+2026-04-06 16:31:47,179 - main - INFO -   wasabi.ops.throttle.count: 0
+2026-04-06 16:31:47,179 - main - INFO -   wasabi.ops.replication.status: 1
+2026-04-06 16:31:47,179 - main - INFO -   wasabi.ops.storage_increase.bytes: 190588
+2026-04-06 16:31:47,179 - main - INFO - ======================================
+2026-04-06 16:31:47,181 - main - INFO - Metrics written to C:\Users\smuroyama8900\OneDrive - 株式会社ベイカレント\ドキュメント\antigravity\kanshi-main\output.txt
+2026-04-06 16:31:47,182 - main - INFO - Local test mode completed. Check output.txt for results.
+2026-04-06 16:35:10,710 - apscheduler.executors.default - INFO - Running job "MonitorApp.run_job (trigger: interval[0:05:00], next run at: 2026-04-06 16:40:10 JST)" (scheduled at 2026-04-06 16:35:10.696198+09:00)
+2026-04-06 16:35:10,710 - main - INFO - --- Starting Log Collection ---
+2026-04-06 16:35:10,710 - collectors.bucket_log_collector - INFO - Starting bucket log collection from local path ./test/bucket_logs/
+2026-04-06 16:35:10,767 - collectors.bucket_log_collector - INFO - Bucket log collection (local) completed. Inserted 0 new records.
+2026-04-06 16:35:10,767 - collectors.audit_log_collector - INFO - Starting audit log collection from local path ./test/audit_logs/
+2026-04-06 16:35:10,773 - collectors.audit_log_collector - INFO - Audit log collection (local) completed. Inserted 0 records.
+2026-04-06 16:35:10,773 - main - INFO - Colletion summary: BucketLogs=0, AuditLogs=0
+2026-04-06 16:35:10,773 - main - INFO - --- Starting Log Analysis ---
+2026-04-06 16:35:10,773 - main - INFO - Analyzing time window: 2026-04-06 16:30:10.773878 to 2026-04-06 16:35:10.773878
+2026-04-06 16:35:10,817 - main - ERROR - Error during analysis or alerting phase: can't subtract offset-naive and offset-aware datetimes
+2026-04-06 16:35:10,817 - apscheduler.executors.default - INFO - Job "MonitorApp.run_job (trigger: interval[0:05:00], next run at: 2026-04-06 16:40:10 JST)" executed successfully
+2026-04-06 16:40:10,703 - apscheduler.executors.default - INFO - Running job "MonitorApp.run_job (trigger: interval[0:05:00], next run at: 2026-04-06 16:45:10 JST)" (scheduled at 2026-04-06 16:40:10.696198+09:00)
+2026-04-06 16:40:10,704 - main - INFO - --- Starting Log Collection ---
+2026-04-06 16:40:10,704 - collectors.bucket_log_collector - INFO - Starting bucket log collection from local path ./test/bucket_logs/
+2026-04-06 16:40:10,760 - collectors.bucket_log_collector - INFO - Bucket log collection (local) completed. Inserted 0 new records.
+2026-04-06 16:40:10,761 - collectors.audit_log_collector - INFO - Starting audit log collection from local path ./test/audit_logs/
+2026-04-06 16:40:10,765 - collectors.audit_log_collector - INFO - Audit log collection (local) completed. Inserted 0 records.
+2026-04-06 16:40:10,766 - main - INFO - Colletion summary: BucketLogs=0, AuditLogs=0
+2026-04-06 16:40:10,766 - main - INFO - --- Starting Log Analysis ---
+2026-04-06 16:40:10,766 - main - INFO - Analyzing time window: 2026-04-06 16:35:10.766219 to 2026-04-06 16:40:10.766219
+2026-04-06 16:40:10,806 - main - ERROR - Error during analysis or alerting phase: can't subtract offset-naive and offset-aware datetimes
+2026-04-06 16:40:10,807 - apscheduler.executors.default - INFO - Job "MonitorApp.run_job (trigger: interval[0:05:00], next run at: 2026-04-06 16:45:10 JST)" executed successfully
+2026-04-06 16:53:59,704 - apscheduler.executors.default - WARNING - Run time of job "MonitorApp.run_job (trigger: interval[0:05:00], next run at: 2026-04-06 16:55:10 JST)" was missed by 0:03:49.008551
+2026-04-06 16:55:10,698 - apscheduler.executors.default - INFO - Running job "MonitorApp.run_job (trigger: interval[0:05:00], next run at: 2026-04-06 17:00:10 JST)" (scheduled at 2026-04-06 16:55:10.696198+09:00)
+2026-04-06 16:55:10,698 - main - INFO - --- Starting Log Collection ---
+2026-04-06 16:55:10,698 - collectors.bucket_log_collector - INFO - Starting bucket log collection from local path ./test/bucket_logs/
+2026-04-06 16:55:10,810 - collectors.bucket_log_collector - INFO - Bucket log collection (local) completed. Inserted 0 new records.
+2026-04-06 16:55:10,810 - collectors.audit_log_collector - INFO - Starting audit log collection from local path ./test/audit_logs/
+2026-04-06 16:55:10,818 - collectors.audit_log_collector - INFO - Audit log collection (local) completed. Inserted 0 records.
+2026-04-06 16:55:10,818 - main - INFO - Colletion summary: BucketLogs=0, AuditLogs=0
+2026-04-06 16:55:10,818 - main - INFO - --- Starting Log Analysis ---
+2026-04-06 16:55:10,818 - main - INFO - Analyzing time window: 2026-04-06 16:50:10.818099 to 2026-04-06 16:55:10.818099
+2026-04-06 16:55:10,906 - main - ERROR - Error during analysis or alerting phase: can't subtract offset-naive and offset-aware datetimes
+2026-04-06 16:55:10,906 - apscheduler.executors.default - INFO - Job "MonitorApp.run_job (trigger: interval[0:05:00], next run at: 2026-04-06 17:00:10 JST)" executed successfully
+2026-04-06 17:00:10,763 - apscheduler.executors.default - INFO - Running job "MonitorApp.run_job (trigger: interval[0:05:00], next run at: 2026-04-06 17:05:10 JST)" (scheduled at 2026-04-06 17:00:10.696198+09:00)
+2026-04-06 17:00:10,763 - main - INFO - --- Starting Log Collection ---
+2026-04-06 17:00:10,763 - collectors.bucket_log_collector - INFO - Starting bucket log collection from local path ./test/bucket_logs/
+2026-04-06 17:00:10,929 - collectors.bucket_log_collector - INFO - Bucket log collection (local) completed. Inserted 0 new records.
+2026-04-06 17:00:10,929 - collectors.audit_log_collector - INFO - Starting audit log collection from local path ./test/audit_logs/
+2026-04-06 17:00:10,940 - collectors.audit_log_collector - INFO - Audit log collection (local) completed. Inserted 0 records.
+2026-04-06 17:00:10,940 - main - INFO - Colletion summary: BucketLogs=0, AuditLogs=0
+2026-04-06 17:00:10,940 - main - INFO - --- Starting Log Analysis ---
+2026-04-06 17:00:10,940 - main - INFO - Analyzing time window: 2026-04-06 16:55:10.940417 to 2026-04-06 17:00:10.940417
+2026-04-06 17:00:11,043 - main - ERROR - Error during analysis or alerting phase: can't subtract offset-naive and offset-aware datetimes
+2026-04-06 17:00:11,043 - apscheduler.executors.default - INFO - Job "MonitorApp.run_job (trigger: interval[0:05:00], next run at: 2026-04-06 17:05:10 JST)" executed successfully
+2026-04-06 17:05:10,875 - apscheduler.executors.default - INFO - Running job "MonitorApp.run_job (trigger: interval[0:05:00], next run at: 2026-04-06 17:10:10 JST)" (scheduled at 2026-04-06 17:05:10.696198+09:00)
+2026-04-06 17:05:10,875 - main - INFO - --- Starting Log Collection ---
+2026-04-06 17:05:10,876 - collectors.bucket_log_collector - INFO - Starting bucket log collection from local path ./test/bucket_logs/
+2026-04-06 17:05:10,976 - collectors.bucket_log_collector - INFO - Bucket log collection (local) completed. Inserted 0 new records.
+2026-04-06 17:05:10,976 - collectors.audit_log_collector - INFO - Starting audit log collection from local path ./test/audit_logs/
+2026-04-06 17:05:10,979 - collectors.audit_log_collector - INFO - Audit log collection (local) completed. Inserted 0 records.
+2026-04-06 17:05:10,979 - main - INFO - Colletion summary: BucketLogs=0, AuditLogs=0
+2026-04-06 17:05:10,979 - main - INFO - --- Starting Log Analysis ---
+2026-04-06 17:05:10,979 - main - INFO - Analyzing time window: 2026-04-06 17:00:10.979713 to 2026-04-06 17:05:10.979713
+2026-04-06 17:05:11,074 - main - ERROR - Error during analysis or alerting phase: can't subtract offset-naive and offset-aware datetimes
+2026-04-06 17:05:11,076 - apscheduler.executors.default - INFO - Job "MonitorApp.run_job (trigger: interval[0:05:00], next run at: 2026-04-06 17:10:10 JST)" executed successfully
+2026-04-06 17:10:10,698 - apscheduler.executors.default - INFO - Running job "MonitorApp.run_job (trigger: interval[0:05:00], next run at: 2026-04-06 17:15:10 JST)" (scheduled at 2026-04-06 17:10:10.696198+09:00)
+2026-04-06 17:10:10,698 - main - INFO - --- Starting Log Collection ---
+2026-04-06 17:10:10,699 - collectors.bucket_log_collector - INFO - Starting bucket log collection from local path ./test/bucket_logs/
+2026-04-06 17:10:10,781 - collectors.bucket_log_collector - INFO - Bucket log collection (local) completed. Inserted 0 new records.
+2026-04-06 17:10:10,782 - collectors.audit_log_collector - INFO - Starting audit log collection from local path ./test/audit_logs/
+2026-04-06 17:10:10,788 - collectors.audit_log_collector - INFO - Audit log collection (local) completed. Inserted 0 records.
+2026-04-06 17:10:10,789 - main - INFO - Colletion summary: BucketLogs=0, AuditLogs=0
+2026-04-06 17:10:10,789 - main - INFO - --- Starting Log Analysis ---
+2026-04-06 17:10:10,789 - main - INFO - Analyzing time window: 2026-04-06 17:05:10.789360 to 2026-04-06 17:10:10.789360
+2026-04-06 17:10:10,862 - main - ERROR - Error during analysis or alerting phase: can't subtract offset-naive and offset-aware datetimes
+2026-04-06 17:10:10,862 - apscheduler.executors.default - INFO - Job "MonitorApp.run_job (trigger: interval[0:05:00], next run at: 2026-04-06 17:15:10 JST)" executed successfully
+2026-04-06 17:15:10,709 - apscheduler.executors.default - INFO - Running job "MonitorApp.run_job (trigger: interval[0:05:00], next run at: 2026-04-06 17:20:10 JST)" (scheduled at 2026-04-06 17:15:10.696198+09:00)
+2026-04-06 17:15:10,710 - main - INFO - --- Starting Log Collection ---
+2026-04-06 17:15:10,710 - collectors.bucket_log_collector - INFO - Starting bucket log collection from local path ./test/bucket_logs/
+2026-04-06 17:15:10,779 - collectors.bucket_log_collector - INFO - Bucket log collection (local) completed. Inserted 0 new records.
+2026-04-06 17:15:10,779 - collectors.audit_log_collector - INFO - Starting audit log collection from local path ./test/audit_logs/
+2026-04-06 17:15:10,789 - collectors.audit_log_collector - INFO - Audit log collection (local) completed. Inserted 0 records.
+2026-04-06 17:15:10,789 - main - INFO - Colletion summary: BucketLogs=0, AuditLogs=0
+2026-04-06 17:15:10,789 - main - INFO - --- Starting Log Analysis ---
+2026-04-06 17:15:10,789 - main - INFO - Analyzing time window: 2026-04-06 17:10:10.789169 to 2026-04-06 17:15:10.789169
+2026-04-06 17:15:10,885 - main - ERROR - Error during analysis or alerting phase: can't subtract offset-naive and offset-aware datetimes
+2026-04-06 17:15:10,887 - apscheduler.executors.default - INFO - Job "MonitorApp.run_job (trigger: interval[0:05:00], next run at: 2026-04-06 17:20:10 JST)" executed successfully
+2026-04-06 17:20:10,700 - apscheduler.executors.default - INFO - Running job "MonitorApp.run_job (trigger: interval[0:05:00], next run at: 2026-04-06 17:25:10 JST)" (scheduled at 2026-04-06 17:20:10.696198+09:00)
+2026-04-06 17:20:10,700 - main - INFO - --- Starting Log Collection ---
+2026-04-06 17:20:10,700 - collectors.bucket_log_collector - INFO - Starting bucket log collection from local path ./test/bucket_logs/
+2026-04-06 17:20:10,787 - collectors.bucket_log_collector - INFO - Bucket log collection (local) completed. Inserted 0 new records.
+2026-04-06 17:20:10,787 - collectors.audit_log_collector - INFO - Starting audit log collection from local path ./test/audit_logs/
+2026-04-06 17:20:10,806 - collectors.audit_log_collector - INFO - Audit log collection (local) completed. Inserted 0 records.
+2026-04-06 17:20:10,806 - main - INFO - Colletion summary: BucketLogs=0, AuditLogs=0
+2026-04-06 17:20:10,806 - main - INFO - --- Starting Log Analysis ---
+2026-04-06 17:20:10,807 - main - INFO - Analyzing time window: 2026-04-06 17:15:10.806160 to 2026-04-06 17:20:10.806160
+2026-04-06 17:20:10,881 - main - ERROR - Error during analysis or alerting phase: can't subtract offset-naive and offset-aware datetimes
+2026-04-06 17:20:10,881 - apscheduler.executors.default - INFO - Job "MonitorApp.run_job (trigger: interval[0:05:00], next run at: 2026-04-06 17:25:10 JST)" executed successfully
+2026-04-06 17:25:10,698 - apscheduler.executors.default - INFO - Running job "MonitorApp.run_job (trigger: interval[0:05:00], next run at: 2026-04-06 17:30:10 JST)" (scheduled at 2026-04-06 17:25:10.696198+09:00)
+2026-04-06 17:25:10,698 - main - INFO - --- Starting Log Collection ---
+2026-04-06 17:25:10,698 - collectors.bucket_log_collector - INFO - Starting bucket log collection from local path ./test/bucket_logs/
+2026-04-06 17:25:10,795 - collectors.bucket_log_collector - INFO - Bucket log collection (local) completed. Inserted 0 new records.
+2026-04-06 17:25:10,810 - collectors.audit_log_collector - INFO - Starting audit log collection from local path ./test/audit_logs/
+2026-04-06 17:25:10,818 - collectors.audit_log_collector - INFO - Audit log collection (local) completed. Inserted 0 records.
+2026-04-06 17:25:10,819 - main - INFO - Colletion summary: BucketLogs=0, AuditLogs=0
+2026-04-06 17:25:10,819 - main - INFO - --- Starting Log Analysis ---
+2026-04-06 17:25:10,820 - main - INFO - Analyzing time window: 2026-04-06 17:20:10.820660 to 2026-04-06 17:25:10.820660
+2026-04-06 17:25:10,887 - main - ERROR - Error during analysis or alerting phase: can't subtract offset-naive and offset-aware datetimes
+2026-04-06 17:25:10,888 - apscheduler.executors.default - INFO - Job "MonitorApp.run_job (trigger: interval[0:05:00], next run at: 2026-04-06 17:30:10 JST)" executed successfully

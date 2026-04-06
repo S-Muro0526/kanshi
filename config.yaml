@@ -17,9 +17,15 @@ wasabi:
 # 監査ログ設定
 audit_log:
   # "bucket" = ログ保管バケットから取得, "local" = ローカルCSVから取得
-  source: "bucket"
+  source: "local"
   bucket_prefix: "audit-logs/"
-  local_path: "./audit_logs/"
+  local_path: "./test/audit_logs/"
+
+# バケットログ設定
+bucket_log:
+  # "bucket" = S3ログバケットから取得, "local" = ローカルファイルから取得
+  source: "local"
+  local_path: "./test/bucket_logs/"
 
 # DB設定
 database:

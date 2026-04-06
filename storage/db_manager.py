@@ -16,7 +16,29 @@ logger = logging.getLogger(__name__)
 class DBManager:
     def __init__(self, db_path: str):
         self.db_path = db_path
+        self._register_adapters()
         self._init_db()
+
+    @staticmethod
+    def _register_adapters():
+        """タイムゾーン付きdatetimeをSQLiteで正しく保存・復元するためのアダプターを登録"""
+        # Adapter: datetime → ISO文字列としてDB保存
+        def adapt_datetime(dt):
+            return dt.isoformat()
+        
+        # Converter: DB文字列 → datetime復元（タイムゾーン付き対応）
+        def convert_datetime(val):
+            try:
+                return datetime.fromisoformat(val.decode())
+            except (ValueError, AttributeError):
+                try:
+                    # フォールバック: スペース区切りの標準SQLite形式
+                    return datetime.strptime(val.decode(), "%Y-%m-%d %H:%M:%S")
+                except (ValueError, AttributeError):
+                    return None
+        
+        sqlite3.register_adapter(datetime, adapt_datetime)
+        sqlite3.register_converter("TIMESTAMP", convert_datetime)
 
     def _get_connection(self):
         # タイムスタンプを自動的にパースするため

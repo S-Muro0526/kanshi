@@ -1,28 +1,32 @@
-Using database: /Users/shunki/Documents/AI/003/wasabi-log-monitor/./data/wasabi_monitor.db
-wasabi.sec.unauth_access.count: 1
-wasabi.sec.403_error.count: 0
-wasabi.sec.unknown_ip.count: 1
-wasabi.sec.data_exfil.bytes: 1024
+# Wasabi Monitor Analysis Results
+# Generated: 2026-04-06T07:31:47.181102+00:00
+# Mode: LOCAL TEST
+# Database: C:\Users\smuroyama8900\OneDrive - 株式会社ベイカレント\ドキュメント\antigravity\kanshi-main\data\wasabi_monitor.db
+
+wasabi.sec.unauth_access.count: 0
+wasabi.sec.403_error.count: 96
+wasabi.sec.unknown_ip.count: 6593
+wasabi.sec.data_exfil.bytes: 15097109752
 wasabi.sec.suspicious_ua.count: 0
 wasabi.sec.delete_ops.count: 0
-wasabi.sec.off_hours.count: 0
-wasabi.sec.weak_tls.count: 0
-wasabi.sec.admin_fail.count: 1
+wasabi.sec.off_hours.count: 1290
+wasabi.sec.weak_tls.count: 6593
+wasabi.sec.admin_fail.count: 0
 wasabi.sec.root_usage.count: 0
 wasabi.upl.scheduled.status: 0
-wasabi.upl.upload.bytes: 5000000
-wasabi.upl.upload_failure.count: 0
+wasabi.upl.upload.bytes: 190588
+wasabi.upl.upload_failure.count: 16
 wasabi.upl.unknown_ip.count: 1
 wasabi.upl.multipart_uncompleted.count: 0
-wasabi.upl.daily_upload.count: 1
-wasabi.pub.anon_get.count: 1
+wasabi.upl.daily_upload.count: 31
+wasabi.pub.anon_get.count: 0
 wasabi.pub.acl_change.count: 0
 wasabi.pub.external_referer.count: 0
 wasabi.pub.anon_list.count: 0
 wasabi.pub.browser_access.count: 0
 wasabi.pub.policy_change.count: 0
 wasabi.pub.public_config_change.count: 0
-wasabi.ops.log_delay.seconds: 122.767256
+wasabi.ops.log_delay.seconds: 406538.169792
 wasabi.ops.throttle.count: 0
 wasabi.ops.replication.status: 1
-wasabi.ops.storage_increase.bytes: 5000000
+wasabi.ops.storage_increase.bytes: 190588
