@@ -39,3 +39,6 @@
 2026-04-05 23:57:05,488 - main - INFO - Generated 27 metrics.
 2026-04-05 23:57:05,493 - alerting.zabbix_sender - ERROR - zabbix_sender executable not found at /usr/bin/zabbix_sender. Ensure it is installed.
 2026-04-05 23:57:05,493 - main - WARNING - Failed to send some/all metrics to Zabbix. (expected if zabbix_sender is not configured)
+2026-04-06 03:10:19,650 - storage.db_manager - INFO - Database initialized successfully.
+2026-04-06 03:10:20,242 - collectors.bucket_log_collector - INFO - Starting bucket log collection from local path ./bucket_logs/
+2026-04-06 03:10:20,283 - collectors.bucket_log_collector - INFO - Bucket log collection (local) completed. Inserted 1 records.
