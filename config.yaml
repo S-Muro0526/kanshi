@@ -14,6 +14,12 @@ wasabi:
   log_bucket: "log-storage-bucket"
   log_prefix: ""
 
+# バケットログ設定
+bucket_log:
+  # "bucket" = ログ保管バケットから取得, "local" = ローカルディレクトリから取得
+  source: "bucket"
+  local_path: "./bucket_logs/"
+
 # 監査ログ設定
 audit_log:
   # "bucket" = ログ保管バケットから取得, "local" = ローカルCSVから取得

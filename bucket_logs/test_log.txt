@@ -1,0 +1,1 @@
+79a59df900b949e55d96a1e698fbacedfd6e09d98eacf8f8d5218e7cd47ef2be mybucket [06/Feb/2026:00:00:38 +0000] 192.168.1.10 arn:aws:iam::123456789012:user/shunki 7E4A26F123456789 REST.GET.OBJECT my-photo.jpg "GET /mybucket/my-photo.jpg HTTP/1.1" 200 - 4195 4195 9 6 "-" "Mozilla/5.0" - - - - - mybucket.s3.wasabisys.com TLSv1.2
